@@ -7,6 +7,9 @@
 Assets/AssetStoreTools*
 UserSettings/
 
+Assets/Plugins
+Assets/Plugins.meta
+
 # Visual Studio cache directory
 .vs/
 .idea/

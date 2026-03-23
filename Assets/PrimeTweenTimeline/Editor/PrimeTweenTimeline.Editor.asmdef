@@ -1,0 +1,25 @@
+{
+    "name": "PrimeTweenTimeline.Editor",
+    "rootNamespace": "",
+    "references": [
+        "GUID:21416576f54366e4fa551427feb93625",
+        "GUID:80ecb87cae9c44d19824e70ea7229748"
+    ],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [
+        {
+            "name": "com.kyrylokuzyk.primetween",
+            "expression": "1.0.0",
+            "define": "PRIME_TWEEN"
+        }
+    ],
+    "noEngineReferences": false
+}

@@ -1,0 +1,197 @@
+#if PRIME_TWEEN && ODIN_INSPECTOR
+using System;
+using PrimeTween;
+using UnityEngine;
+#if UNITY_EDITOR
+using UnityEditor;
+#endif
+
+namespace PTT.Tweens
+{
+    [Serializable]
+    public class PositionZ : TweenTrack<float>
+    {
+        private Transform cachedTarget;
+
+        public override Sequence Create(ref Sequence sequence, GameObject self)
+        {
+            if (!active) return sequence;
+
+            if (!cachedTarget) GetCache(self);
+
+            if (!cachedTarget) return sequence;
+
+            if (!hasStartValue && Mathf.Approximately(cachedTarget.position.z, end)) return sequence;
+
+            TweenSettings<float> settings = new(start, end, tweenSettings)
+            {
+                startFromCurrent = !hasStartValue
+            };
+
+            if (hasStartValue)
+            {
+                cachedTarget.position =
+                    new Vector3(cachedTarget.position.x, cachedTarget.position.y, start);
+            }
+
+            sequence.Group(Tween.PositionZ(cachedTarget, settings));
+
+            return sequence;
+        }
+
+        protected override void OnTargetChanged()
+        {
+            if (target is GameObject go) target = cachedTarget = go.transform;
+
+            if (target is not Transform) target = null;
+        }
+
+        private void GetCache(GameObject self)
+        {
+            cachedTarget = targetIsSelf ? self.transform : target as Transform;
+        }
+
+        protected override void PickStart()
+        {
+#if UNITY_EDITOR
+            GetCache(Selection.activeGameObject);
+            if (cachedTarget)
+            {
+                RegisterUndo("Pick start");
+                start = cachedTarget.position.z;
+            }
+#endif
+        }
+
+        protected override void GoToStart()
+        {
+#if UNITY_EDITOR
+            GetCache(Selection.activeGameObject);
+            if (cachedTarget)
+            {
+                Undo.RegisterCompleteObjectUndo(cachedTarget, "Goto start");
+                cachedTarget.position = new Vector3(cachedTarget.position.x, cachedTarget.position.y, start);
+            }
+#endif
+        }
+
+        protected override void PickEnd()
+        {
+#if UNITY_EDITOR
+            GetCache(Selection.activeGameObject);
+            if (cachedTarget)
+            {
+                RegisterUndo("Pick end");
+                end = cachedTarget.position.z;
+            }
+#endif
+        }
+
+        protected override void GoToEnd()
+        {
+#if UNITY_EDITOR
+            GetCache(Selection.activeGameObject);
+            if (cachedTarget)
+            {
+                Undo.RegisterCompleteObjectUndo(cachedTarget, "Goto end");
+                cachedTarget.position = new Vector3(cachedTarget.position.x, cachedTarget.position.y, end);
+            }
+#endif
+        }
+    }
+
+    [Serializable]
+    public class LocalPositionZ : TweenTrack<float>
+    {
+        private Transform cachedTarget;
+
+        public override Sequence Create(ref Sequence sequence, GameObject self)
+        {
+            if (!active) return sequence;
+
+            if (!cachedTarget) GetCache(self);
+
+            if (!cachedTarget) return sequence;
+
+            if (!hasStartValue && Mathf.Approximately(cachedTarget.localPosition.z, end)) return sequence;
+
+            TweenSettings<float> settings = new(start, end, tweenSettings)
+            {
+                startFromCurrent = !hasStartValue
+            };
+
+            if (hasStartValue)
+            {
+                cachedTarget.localPosition =
+                    new Vector3(cachedTarget.localPosition.x, cachedTarget.localPosition.y, start);
+            }
+
+            sequence.Group(Tween.LocalPositionZ(cachedTarget, settings));
+
+            return sequence;
+        }
+
+        protected override void OnTargetChanged()
+        {
+            if (target is GameObject go) target = cachedTarget = go.transform;
+
+            if (target is not Transform) target = null;
+        }
+
+        private void GetCache(GameObject self)
+        {
+            cachedTarget = targetIsSelf ? self.transform : target as Transform;
+        }
+
+        protected override void PickStart()
+        {
+#if UNITY_EDITOR
+            GetCache(Selection.activeGameObject);
+            if (cachedTarget)
+            {
+                RegisterUndo("Pick start");
+                start = cachedTarget.localPosition.z;
+            }
+#endif
+        }
+
+        protected override void GoToStart()
+        {
+#if UNITY_EDITOR
+            GetCache(Selection.activeGameObject);
+            if (cachedTarget)
+            {
+                Undo.RegisterCompleteObjectUndo(cachedTarget, "Goto start");
+                cachedTarget.localPosition =
+                    new Vector3(cachedTarget.localPosition.x, cachedTarget.localPosition.y, start);
+            }
+#endif
+        }
+
+        protected override void PickEnd()
+        {
+#if UNITY_EDITOR
+            GetCache(Selection.activeGameObject);
+            if (cachedTarget)
+            {
+                RegisterUndo("Pick end");
+                end = cachedTarget.localPosition.z;
+            }
+#endif
+        }
+
+        protected override void GoToEnd()
+        {
+#if UNITY_EDITOR
+            GetCache(Selection.activeGameObject);
+            if (cachedTarget)
+            {
+                Undo.RegisterCompleteObjectUndo(cachedTarget, "Goto end");
+                cachedTarget.localPosition =
+                    new Vector3(cachedTarget.localPosition.x, cachedTarget.localPosition.y, end);
+            }
+#endif
+        }
+    }
+}
+#endif
