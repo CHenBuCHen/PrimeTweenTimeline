@@ -17,7 +17,7 @@ Modified from this package [dotween-timeline](https://github.com/medvejut/dotwee
 
 ## How to use
 
-- install [Odin](https://odininspector.com/)
+- install [Odin](https://odininspector.com/) and PrimeTween [AssetStore](assetstore.unity.com/packages/slug/252960) [Github](https://github.com/KyryloKuzyk/PrimeTween)
 - import this package
 - add Timeline compoent on GameObject
 - add tween track
